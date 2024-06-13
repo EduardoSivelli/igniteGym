@@ -80,7 +80,7 @@ const signInSchema = yup.object({
     }
   return(
     <VStack flex={1}>
-      <ScreenHeader title="Perfil"/>
+      <ScreenHeader title="Perfil!"/>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 36}}>
         <Center mt={6} px={10}>
