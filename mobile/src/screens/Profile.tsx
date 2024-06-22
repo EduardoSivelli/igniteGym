@@ -22,9 +22,9 @@ const PHOTO_SIZE = 33;
 type FormDataProps = {
   name: string;
   email: string
-  password: string;
+  password: string | null;
   old_password: string;
-  confirm_password: string;
+  confirm_password: string | null;
 }
 
 const profileSchema = yup.object({
