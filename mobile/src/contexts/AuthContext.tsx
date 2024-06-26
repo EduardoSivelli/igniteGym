@@ -3,6 +3,7 @@ import { api } from "@services/api";
 
 import { storageAuthTokenSave, storageAuthTokenGet, storageAuthTokenRemove } from "@storage/storageAuthToken";
 import { storageUserSave, storageUserGet, storageUserRemove } from "@storage/storageUser";
+import axios from "axios";
 
 import { ReactNode, createContext, useEffect, useState } from "react";
 
@@ -46,7 +47,7 @@ export const AuthContext = createContext<AuthContextDataProps>({} as AuthContext
 
   async function signIn(email: string, password: string){
     try{
-      const { data } = await api.post('/sessions', {email, password})
+      const { data } = await axios.post('http://201.86.218.195:3333/sessions', {email, password})
 
       if (data.user && data.token && data.refresh_token){
         await storageUserAndTokenSave(data.user, data.token, data.refresh_token)

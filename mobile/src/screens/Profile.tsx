@@ -19,25 +19,28 @@ import { AppError } from "@utils/AppError";
 const PHOTO_SIZE = 33;
 
 
+
 type FormDataProps = {
+  password?: string | null | undefined;
+  old_password?: string | undefined;
+  confirm_password?: string | null | undefined;
+  email: string;
   name: string;
-  email: string
-  password: string | null;
-  old_password: string;
-  confirm_password: string | null;
 }
 
 const profileSchema = yup.object({
   name: yup.string().required('Informe seu nome.'),
+  email: yup.string().required('Informe seu email.').email('Email inválido'),
+  old_password: yup.string(),
   password: yup.string().min(6, 'A senha deve ter pelo menos 6 dígitos').nullable().transform((value) => !!value ? value : null),
   confirm_password: yup
     .string()
     .nullable()
     .transform((value) => !!value ? value : null)
-    .oneOf([yup.ref('password'), ''], 'A confirmação da senha está incorreta')
+    .oneOf([yup.ref('password'), null], 'A confirmação da senha está incorreta')
     .when('password', {
       is: (Field: any) => Field, 
-      then: (shema) => shema.nullable().required('Informe a confirmação da senha.').transform((value) => !!value ? value : null)
+      then: (schema) => schema.nullable().required('Informe a confirmação da senha.').transform((value) => !!value ? value : null)
     }),
 })
 
